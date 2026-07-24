@@ -3,6 +3,7 @@ const morgan = require('morgan')
 var logger = morgan('tiny')
 const app = express()
 app.use(express.json())
+app.use(express.static('dist'))
 morgan.token('body', (request) => {
     if (request.method === 'POST') {
         return JSON.stringify(request.body)
@@ -104,7 +105,7 @@ app.get('/info', (request, response) => {
         <p>${date}</p>
     `)
 })
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
